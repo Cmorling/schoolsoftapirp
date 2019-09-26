@@ -1,5 +1,5 @@
 from flask import Flask
-from src import main
+import main
 
 app = Flask(__name__)
 student=main.schoolsoft("caspian.morling", "C4sp14nM0rl1ng_schoolsoft")
