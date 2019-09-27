@@ -137,7 +137,7 @@ class schoolsoft:
         print(today)
         if today < 5:
             print(today, lunch_menu)
-            return lunch_menu[today]
+            return {'weekend': False, 'm': lunch_menu[today]}
         if today > 4:
             print(today, lunch_menu)
-            return lunch_menu[4]
+            return {'weekend': True, 'm': lunch_menu[4]}
