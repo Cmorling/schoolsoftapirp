@@ -135,4 +135,5 @@ class schoolsoft:
             lunch_menu.append(food_info)
         today = datetime.datetime.today().weekday()
         if today < 5:
+            print(today, lunch_menu)
             return lunch_menu[today]
