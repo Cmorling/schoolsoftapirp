@@ -8,6 +8,7 @@ student.login()
 def hello_world():
     menu=student.get_food()
     menuString = "The food for today is: "
+    print(menu)
     for i in menu:
         menuString = menuString + i + ", "
     menuString = menuString[:-2]

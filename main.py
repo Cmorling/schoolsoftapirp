@@ -134,6 +134,10 @@ class schoolsoft:
             food_info = div.get_text(separator=u"<br/>").split(u"<br/>")
             lunch_menu.append(food_info)
         today = datetime.datetime.today().weekday()
+        print(today)
         if today < 5:
             print(today, lunch_menu)
             return lunch_menu[today]
+        if today > 4:
+            print(today, lunch_menu)
+            return lunch_menu[4]
