@@ -3,9 +3,9 @@ import main
 
 app = Flask(__name__)
 student=main.schoolsoft("caspian.morling", "C4sp14nM0rl1ng_schoolsoft")
-student.login()
 @app.route('/food')
-def hello_world():
+def get_food():
+    student.login()
     menu=student.get_food()
     print(menu)
     if menu['weekend'] == False:

@@ -127,14 +127,13 @@ class schoolsoft:
     def get_food(self):
         r = requests.get("https://sms14.schoolsoft.se/engelska/jsp/student/right_student_lunchmenu.jsp?menu=lunchmenu", cookies=self.cookies)
         menu = BeautifulSoup(r.text, "html.parser")
-
+        print(menu)
         lunch_menu = []
 
         for div in menu.find_all("td", {"style": "word-wrap: break-word"}):
             food_info = div.get_text(separator=u"<br/>").split(u"<br/>")
             lunch_menu.append(food_info)
         today = datetime.datetime.today().weekday()
-        print(today)
         if today < 5:
             print(today, lunch_menu)
             return {'weekend': False, 'm': lunch_menu[today]}
