@@ -71,6 +71,7 @@ class schoolsoft:
         self.latest_results = ""
 
     def login(self):
+        self.cookies = {}
         r = requests.post("https://sms14.schoolsoft.se/engelska/jsp/Login.jsp", data=self.user_creds, cookies=self.cookies, allow_redirects=False)
         self.cookies = r.cookies
     '''
@@ -125,9 +126,9 @@ class schoolsoft:
                 '''Get table'''
                 print('%s: %s' % (s.name, s.grade))
     def get_food(self):
+        self.login()
         r = requests.get("https://sms14.schoolsoft.se/engelska/jsp/student/right_student_lunchmenu.jsp?menu=lunchmenu", cookies=self.cookies)
         menu = BeautifulSoup(r.text, "html.parser")
-        print(menu)
         lunch_menu = []
 
         for div in menu.find_all("td", {"style": "word-wrap: break-word"}):
@@ -140,3 +141,19 @@ class schoolsoft:
         if today > 4:
             print(today, lunch_menu)
             return {'weekend': True, 'm': lunch_menu[4]}
+    def get_schedule(self, day):
+        self.login()
+        r = requests.get("https://sms14.schoolsoft.se/engelska/jsp/student/right_student_schedule.jsp?menu=schedule", cookies=self.cookies)
+        menu=BeautifulSoup(r.text, "html.parser")
+        days = [[], [], [], [], []]
+        counter = 0
+        for a in menu.find_all("a", {"class": "schedule"}):
+            for span in a.find_all("span", {}):
+                schedule_info = span.get_text(separator=u"<br/>").split(u"<br/>")
+                days[counter].append(schedule_info[0])
+            if counter < 5:    
+                counter += 1
+            if counter == 5:
+                counter = 0
+        print(days)
+        return days[day]
